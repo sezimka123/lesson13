@@ -9,8 +9,8 @@ int computerBinarySearch() {
   print(
       "Come up with the number from 1 to 100 so that computer could guess it: ");
 
-  int min = 1;
-  int max = 101;
+  int min = 0;
+  int max = 100;
   int count = 0;
 
   while (min <= max) {
@@ -63,18 +63,19 @@ void startGame() {
   int computerScore = 0;
   int userScore = 0;
 
-  print("==========round $currentRound==========");
-
   if (roundsNumber.isNotEmpty) {
     totalRounds = int.parse(roundsNumber);
   } else {
     totalRounds = 3;
   }
 
-  int computerSteps = computerBinarySearch();
-  int userSteps = gameForUserToGuess();
+  while (currentRound <= totalRounds) {
+    print("==========round $currentRound==========");
+    currentRound++;
 
-  while (totalRounds > currentRound) {
+    int computerSteps = computerBinarySearch();
+    int userSteps = gameForUserToGuess();
+
     if (computerSteps < userSteps) {
       computerScore++;
     } else if (computerSteps > userSteps) {
@@ -83,15 +84,9 @@ void startGame() {
       computerScore++;
       userScore++;
     }
-    print("Computer-$computerScore : User-$userScore");
 
-    currentRound++;
-    print("==========round $currentRound==========");
-    computerBinarySearch();
-    print("==========your turn==========");
-    gameForUserToGuess();
+    print("Computer-$computerScore : User-$userScore");
   }
-  print("Computer-$computerScore : User-$userScore");
 
   if (computerScore > userScore) {
     print("Computer won, maybe next time");
